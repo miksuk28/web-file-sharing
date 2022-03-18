@@ -1,9 +1,13 @@
 import os
 from flask import Flask, jsonify, abort, render_template, request
 from werkzeug.utils import secure_filename
+import db
+
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "/home/mikhail/Programming/Python/web-file-sharing/uploads"
+db = db.FilesWrapper("files.db")
+
 
 @app.route("/api/upload", methods=["POST", "GET"])
 def upload():
@@ -26,15 +30,8 @@ def upload():
             })
 
     else:
-        return '''
-        <!DOCTYPE html>
-        <title>Upload file TESTING</title>
-        <h1>Upload new file</h1>
-        <form method=post enctype=multipart/form-data>
-            <input type=file name=file>
-            <input type=submit value=upload>
-        </form>
-        '''
+        result = db.get_files()
+        return render_template("upload.html", files=result)
 
 
 

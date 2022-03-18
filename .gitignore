@@ -1,0 +1,5 @@
+upload/
+__pycache__
+*.db
+*.sqlite3
+secret_config.py

@@ -3,7 +3,7 @@ import sqlite3
 class FilesWrapper:
     def __init__(self, db_file):
         self._db_file = db_file
-        self._conn = sqlite3.connect(self._db_file)
+        self._conn = sqlite3.connect(self._db_file, check_same_thread=False)
 
     def add_file(self, filename):
         cur = self._conn.cursor()
@@ -26,3 +26,8 @@ class FilesWrapper:
         result = cur.fetchall()
 
         return result
+
+
+    def close_db(self):
+        self._conn.close()
+        print("\nDB Connection closed")

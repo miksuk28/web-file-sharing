@@ -1,5 +1,6 @@
 upload/
 uploads/
+uploads
 __pycache__
 *.db
 *.sqlite3
